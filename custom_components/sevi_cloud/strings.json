@@ -3,7 +3,17 @@
     "step": {
       "user": {
         "title": "Connect to SEVI Cloud",
-        "description": "Enter your SEVI Cloud API key. You can find it in the SEC Smart app under Account → API access.",
+        "description": "Enter your SEVI Cloud API key. You can find it in the SEC Smart app under Account \u2192 API access.",
+        "data": {
+          "api_key": "API Key"
+        },
+        "data_description": {
+          "api_key": "Your personal SEC Smart API key (Bearer token)."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate SEVI Cloud",
+        "description": "Your API key is no longer valid. Enter a new one to restore the connection.",
         "data": {
           "api_key": "API Key"
         },
@@ -18,7 +28,8 @@
       "unknown": "An unexpected error occurred. Check the Home Assistant logs for details."
     },
     "abort": {
-      "already_configured": "This SEVI Cloud account is already configured."
+      "already_configured": "This SEVI Cloud account is already configured.",
+      "reauth_successful": "Re-authentication was successful."
     }
   },
   "entity": {
