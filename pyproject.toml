@@ -20,9 +20,6 @@ include = ["custom_components*"]
 asyncio_mode = "auto"
 testpaths = ["tests"]
 norecursedirs = [".git", ".tox", ".venv"]
-markers = [
-    "live: hits the real SEC Smart API (requires SEVI_API_KEY env var)",
-]
 
 # ---------------------------------------------------------------------------
 # coverage

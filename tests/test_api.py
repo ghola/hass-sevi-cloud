@@ -139,3 +139,12 @@ async def test_set_device_time_autosync(client: SeviCloudApiClient) -> None:
     with aioresponses() as m:
         m.put(f"{API_BASE_URL}/devices/933554/settings/device-time", body="")
         await client.async_set_device_time_autosync("933554", enabled=False)
+
+
+async def test_write_with_plain_text_response_does_not_raise(
+    client: SeviCloudApiClient,
+) -> None:
+    """PUT endpoints that return plain text (e.g. 'OK') must not raise."""
+    with aioresponses() as m:
+        m.put(f"{API_BASE_URL}/devices/933554/areas/mode", body="OK")
+        await client.async_set_area_mode("933554", 4, "Boost ventilation")
