@@ -1,0 +1,68 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to SEVI Cloud",
+        "description": "Enter your SEVI Cloud API key. You can find it in the SEC Smart app under Account \u2192 API access.",
+        "data": {
+          "api_key": "API Key"
+        },
+        "data_description": {
+          "api_key": "Your personal SEC Smart API key (Bearer token)."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate SEVI Cloud",
+        "description": "Your API key is no longer valid. Enter a new one to restore the connection.",
+        "data": {
+          "api_key": "API Key"
+        },
+        "data_description": {
+          "api_key": "Your personal SEC Smart API key (Bearer token)."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to reach the SEVI Cloud API. Check your network connection.",
+      "invalid_auth": "Invalid API key. Check the key and try again.",
+      "unknown": "An unexpected error occurred. Check the Home Assistant logs for details."
+    },
+    "abort": {
+      "already_configured": "This SEVI Cloud account is already configured.",
+      "reauth_successful": "Re-authentication was successful."
+    }
+  },
+  "entity": {
+    "fan": {
+      "ventilation": {
+        "name": "Ventilation"
+      }
+    },
+    "switch": {
+      "boost": {
+        "name": "Boost"
+      },
+      "summer_mode": {
+        "name": "Summer mode"
+      },
+      "time_autosync": {
+        "name": "Time auto-sync"
+      }
+    },
+    "button": {
+      "filter_reset": {
+        "name": "Reset filter"
+      }
+    },
+    "sensor": {
+      "filter_remaining": {
+        "name": "Filter remaining"
+      }
+    },
+    "number": {
+      "filter_max_runtime": {
+        "name": "Filter replacement interval"
+      }
+    }
+  }
+}

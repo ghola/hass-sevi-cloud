@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "hass-sevi-cloud"
+version = "0.1.0"
+description = "Home Assistant integration for SEVI Cloud ventilation systems"
+license = { text = "GPL-3.0-or-later" }
+requires-python = ">=3.13"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["custom_components*"]
+
+# ---------------------------------------------------------------------------
+# pytest
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+norecursedirs = [".git", ".tox", ".venv"]
+markers = [
+    "live: hits the real SEC Smart API (requires SEVI_API_KEY env var)",
+]
+
+# ---------------------------------------------------------------------------
+# coverage
+# ---------------------------------------------------------------------------
+[tool.coverage.run]
+source = ["custom_components.sevi_cloud"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
+
+# ---------------------------------------------------------------------------
+# ruff
+# ---------------------------------------------------------------------------
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+    "ANN", # flake8-annotations (optional but useful)
+]
+ignore = [
+    "ANN101", # missing type annotation for self
+    "ANN102", # missing type annotation for cls
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["custom_components.sevi_cloud"]
