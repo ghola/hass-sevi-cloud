@@ -1,0 +1,6 @@
+# Testing dependencies — let pip resolve transitive versions
+pytest-cov
+pytest-homeassistant-custom-component==0.13.316
+pytest-socket
+aioresponses
+ruff==0.15.4
