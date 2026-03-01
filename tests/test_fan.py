@@ -23,9 +23,9 @@ from .conftest import MOCK_COORDINATOR_DATA, TEST_API_KEY, TEST_DEVICE_ID
 CONFIG_DATA = {CONF_API_KEY: TEST_API_KEY}
 
 # Entity IDs: HA prefixes with device name because _attr_has_entity_name=True.
-FAN_SCHLAFZIMMER = "fan.test_home_schlafzimmer"
-FAN_KINDERZIMMER = "fan.test_home_kinderzimmer"
-FAN_WOHNZIMMER = "fan.test_home_wohnzimmer"
+FAN_BEDROOM = "fan.test_home_bedroom"
+FAN_KIDS_ROOM = "fan.test_home_kids_room"
+FAN_LIVING_ROOM = "fan.test_home_living_room"
 
 
 async def _setup(hass: HomeAssistant):
@@ -47,7 +47,7 @@ async def _setup(hass: HomeAssistant):
 async def test_fan_entities_created(hass: HomeAssistant) -> None:
     """One fan entity per active area should be registered."""
     await _setup(hass)
-    for entity_id in (FAN_SCHLAFZIMMER, FAN_KINDERZIMMER, FAN_WOHNZIMMER):
+    for entity_id in (FAN_BEDROOM, FAN_KIDS_ROOM, FAN_LIVING_ROOM):
         state = hass.states.get(entity_id)
         assert state is not None, f"Missing entity: {entity_id}"
 
@@ -55,7 +55,7 @@ async def test_fan_entities_created(hass: HomeAssistant) -> None:
 async def test_fan_initial_state(hass: HomeAssistant) -> None:
     """Fan is on and shows the correct preset from coordinator data."""
     await _setup(hass)
-    state = hass.states.get(FAN_SCHLAFZIMMER)
+    state = hass.states.get(FAN_BEDROOM)
     assert state.state == "on"
     assert state.attributes["preset_mode"] == MODE_MANUAL_1
 
@@ -65,7 +65,7 @@ async def test_inactive_areas_excluded(hass: HomeAssistant) -> None:
     await _setup(hass)
     for n in (1, 2, 3):
         assert hass.states.get(f"fan.area_{n}") is None
-        assert hass.states.get("fan.kein_name") is None
+        assert hass.states.get("fan.no_name") is None
 
 
 async def test_turn_off(hass: HomeAssistant) -> None:
@@ -76,7 +76,7 @@ async def test_turn_off(hass: HomeAssistant) -> None:
         await hass.services.async_call(
             FAN_DOMAIN,
             "turn_off",
-            {"entity_id": FAN_SCHLAFZIMMER},
+            {"entity_id": FAN_BEDROOM},
             blocking=True,
         )
     mock_client.async_set_area_mode.assert_called_once_with(TEST_DEVICE_ID, 4, MODE_FANS_OFF)
@@ -88,7 +88,7 @@ async def test_set_preset_boost(hass: HomeAssistant) -> None:
     await hass.services.async_call(
         FAN_DOMAIN,
         "set_preset_mode",
-        {"entity_id": FAN_SCHLAFZIMMER, "preset_mode": MODE_BOOST},
+        {"entity_id": FAN_BEDROOM, "preset_mode": MODE_BOOST},
         blocking=True,
     )
     mock_client.async_set_area_mode.assert_called_once_with(TEST_DEVICE_ID, 4, MODE_BOOST)
@@ -101,7 +101,7 @@ async def test_set_percentage(hass: HomeAssistant) -> None:
     await hass.services.async_call(
         FAN_DOMAIN,
         "set_percentage",
-        {"entity_id": FAN_SCHLAFZIMMER, "percentage": 33},
+        {"entity_id": FAN_BEDROOM, "percentage": 33},
         blocking=True,
     )
     called_mode = mock_client.async_set_area_mode.call_args[0][2]

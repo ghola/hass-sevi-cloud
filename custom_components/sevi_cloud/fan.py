@@ -80,7 +80,7 @@ class SeviCloudFan(SeviCloudAreaEntity, FanEntity):
             area_label,
             entity_key="fan",
         )
-        # The entity name is the area label (e.g. "Schlafzimmer").
+        # The entity name is the area label as configured in the SEC Smart app (e.g. "Bedroom").
         self._attr_name = area_label
 
     # ------------------------------------------------------------------

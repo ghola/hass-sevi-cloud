@@ -38,12 +38,12 @@ MOCK_DEVICE_DATA = {
     "id": TEST_DEVICE_ID,
     "name": "Test Home",
     "areas": {
-        "area1": {"label": "Kein Name", "mode": "INACTIVE "},
-        "area2": {"label": "Kein Name", "mode": "INACTIVE "},
-        "area3": {"label": "Kein Name", "mode": "INACTIVE "},
-        "area4": {"label": "Schlafzimmer", "mode": "Manual 1"},
-        "area5": {"label": "Kinderzimmer", "mode": "Manual 2"},
-        "area6": {"label": "Wohnzimmer", "mode": "Manual 1"},
+        "area1": {"label": "No Name", "mode": "INACTIVE "},
+        "area2": {"label": "No Name", "mode": "INACTIVE "},
+        "area3": {"label": "No Name", "mode": "INACTIVE "},
+        "area4": {"label": "Bedroom", "mode": "Manual 1"},
+        "area5": {"label": "Kids Room", "mode": "Manual 2"},
+        "area6": {"label": "Living Room", "mode": "Manual 1"},
     },
     "telemetry": {
         "restFilterTime": 42,

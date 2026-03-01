@@ -40,7 +40,7 @@ async def _setup(hass: HomeAssistant):
 async def test_boost_switches_created(hass: HomeAssistant) -> None:
     """One boost switch per active area (entity IDs prefixed with device name)."""
     await _setup(hass)
-    for label in ("schlafzimmer_boost", "kinderzimmer_boost", "wohnzimmer_boost"):
+    for label in ("bedroom_boost", "kids_room_boost", "living_room_boost"):
         state = hass.states.get(f"switch.test_home_{label}")
         assert state is not None, f"Missing switch.test_home_{label}"
 
@@ -48,7 +48,7 @@ async def test_boost_switches_created(hass: HomeAssistant) -> None:
 async def test_boost_initial_state_off(hass: HomeAssistant) -> None:
     """Boost switch is off when current mode is not Boost ventilation."""
     await _setup(hass)
-    state = hass.states.get("switch.test_home_schlafzimmer_boost")
+    state = hass.states.get("switch.test_home_bedroom_boost")
     assert state.state == "off"
 
 
@@ -58,7 +58,7 @@ async def test_boost_turn_on(hass: HomeAssistant) -> None:
     await hass.services.async_call(
         SWITCH_DOMAIN,
         "turn_on",
-        {"entity_id": "switch.test_home_schlafzimmer_boost"},
+        {"entity_id": "switch.test_home_bedroom_boost"},
         blocking=True,
     )
     mock_client.async_set_area_mode.assert_called_once_with(TEST_DEVICE_ID, 4, MODE_BOOST)
@@ -70,7 +70,7 @@ async def test_boost_turn_off(hass: HomeAssistant) -> None:
     await hass.services.async_call(
         SWITCH_DOMAIN,
         "turn_off",
-        {"entity_id": "switch.test_home_schlafzimmer_boost"},
+        {"entity_id": "switch.test_home_bedroom_boost"},
         blocking=True,
     )
     mock_client.async_set_area_mode.assert_called_once_with(TEST_DEVICE_ID, 4, MODE_MANUAL_1)
