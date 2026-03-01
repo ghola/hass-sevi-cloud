@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import os
-from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -13,18 +11,6 @@ from custom_components.sevi_cloud.api import SeviCloudApiClient
 from custom_components.sevi_cloud.const import CONF_API_KEY, DOMAIN
 
 pytest_plugins = "pytest_homeassistant_custom_component"
-
-# ---------------------------------------------------------------------------
-# Load .env if present (never committed — see .env.example)
-# ---------------------------------------------------------------------------
-
-_dotenv_path = Path(__file__).parent.parent / ".env"
-if _dotenv_path.exists():
-    for _line in _dotenv_path.read_text().splitlines():
-        _line = _line.strip()
-        if _line and not _line.startswith("#") and "=" in _line:
-            _key, _, _val = _line.partition("=")
-            os.environ.setdefault(_key.strip(), _val.strip())
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -106,19 +92,6 @@ def mock_config_entry(config_entry_data: dict) -> MockConfigEntry:
 # ---------------------------------------------------------------------------
 # API client mock
 # ---------------------------------------------------------------------------
-
-
-@pytest.fixture
-def real_api_key() -> str:
-    """Return the real API key from the environment, or skip the test.
-
-    Set SEVI_API_KEY in your shell or in a gitignored .env file
-    (copy .env.example → .env and fill in your key).
-    """
-    key = os.environ.get("SEVI_API_KEY", "")
-    if not key or key == "your-api-key-here":
-        pytest.skip("SEVI_API_KEY not set — skipping live test (see .env.example)")
-    return key
 
 
 @pytest.fixture
