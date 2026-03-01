@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 from typing import Any
 
 import aiohttp
@@ -142,8 +143,11 @@ class SeviCloudApiClient:
                 f"Unexpected HTTP {response.status} from {url}"
             )
 
-        # PUT endpoints return an empty 200 body.
+        # GET endpoints return JSON; PUT endpoints return empty or plain-text bodies.
         text = await response.text()
         if not text.strip():
             return {}
-        return await response.json(content_type=None)
+        try:
+            return json.loads(text)
+        except ValueError:
+            return {}
